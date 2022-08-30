@@ -1,9 +1,12 @@
-import Navigate from 'src/components/Navigate'
+// import Navigate from 'src/components/Navigate'
+import NavMenu from 'src/components/NavMenu'
 
 const MainLayout = ({ children }) => {
+  const { props } = children
+
   return (
     <>
-      <Navigate item={children} />
+      <NavMenu props={props} />
       <main>{children}</main>
     </>
   )

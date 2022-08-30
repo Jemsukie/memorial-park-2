@@ -1,5 +1,7 @@
-import { Link, navigate, routes } from '@redwoodjs/router'
 import { useRef } from 'react'
+import { useEffect } from 'react'
+
+import { useAuth } from '@redwoodjs/auth'
 import {
   Form,
   Label,
@@ -8,17 +10,16 @@ import {
   FieldError,
   Submit,
 } from '@redwoodjs/forms'
-import { useAuth } from '@redwoodjs/auth'
+import { Link, navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/toast'
-import { useEffect } from 'react'
 
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.home())
+      navigate(routes.login())
     }
   }, [isAuthenticated])
 
@@ -29,15 +30,20 @@ const SignupPage = () => {
   }, [])
 
   const onSubmit = async (data) => {
-    const response = await signUp({ ...data })
-
-    if (response.message) {
-      toast(response.message)
-    } else if (response.error) {
-      toast.error(response.error)
+    if (data.password !== data.confirmPassword) {
+      alert('Password not Match!')
+      return
     } else {
-      // user is signed in automatically
-      toast.success('Welcome!')
+      const response = await signUp({ ...data })
+
+      if (response.message) {
+        toast(response.message)
+      } else if (response.error) {
+        toast.error(response.error)
+      } else {
+        // user is signed in automatically
+        toast.success('Welcome!')
+      }
     }
   }
 
@@ -56,12 +62,13 @@ const SignupPage = () => {
             <div className="rw-segment-main">
               <div className="rw-form-wrapper">
                 <Form onSubmit={onSubmit} className="rw-form-wrapper">
+                  {/* Email */}
                   <Label
                     name="username"
                     className="rw-label"
                     errorClassName="rw-label rw-label-error"
                   >
-                    Username
+                    Email
                   </Label>
                   <TextField
                     name="username"
@@ -71,13 +78,57 @@ const SignupPage = () => {
                     validation={{
                       required: {
                         value: true,
-                        message: 'Username is required',
+                        message: 'Email is required',
                       },
                     }}
                   />
-
                   <FieldError name="username" className="rw-field-error" />
 
+                  {/* First Name */}
+                  <Label
+                    name="firstName"
+                    className="rw-label"
+                    errorClassName="rw-label rw-label-error"
+                  >
+                    First Name
+                  </Label>
+                  <TextField
+                    name="firstName"
+                    className="rw-input"
+                    errorClassName="rw-input rw-input-error"
+                    autoComplete="current-firstName"
+                    validation={{
+                      required: {
+                        value: true,
+                        message: 'First name is required',
+                      },
+                    }}
+                  />
+                  <FieldError name="firstName" className="rw-field-error" />
+
+                  {/* First Name */}
+                  <Label
+                    name="lastName"
+                    className="rw-label"
+                    errorClassName="rw-label rw-label-error"
+                  >
+                    Last Name
+                  </Label>
+                  <TextField
+                    name="lastName"
+                    className="rw-input"
+                    errorClassName="rw-input rw-input-error"
+                    autoComplete="current-lastName"
+                    validation={{
+                      required: {
+                        value: true,
+                        message: 'last name is required',
+                      },
+                    }}
+                  />
+                  <FieldError name="lastName" className="rw-field-error" />
+
+                  {/* Password */}
                   <Label
                     name="password"
                     className="rw-label"
@@ -97,8 +148,32 @@ const SignupPage = () => {
                       },
                     }}
                   />
-
                   <FieldError name="password" className="rw-field-error" />
+
+                  {/* Password */}
+                  <Label
+                    name="confirmPassword"
+                    className="rw-label"
+                    errorClassName="rw-label rw-label-error"
+                  >
+                    Confirm Password
+                  </Label>
+                  <PasswordField
+                    name="confirmPassword"
+                    className="rw-input"
+                    errorClassName="rw-input rw-input-error"
+                    autoComplete="current-confirmPassword"
+                    validation={{
+                      required: {
+                        value: true,
+                        message: 'Confirm Password is required',
+                      },
+                    }}
+                  />
+                  <FieldError
+                    name="confirmPassword"
+                    className="rw-field-error"
+                  />
 
                   <div className="rw-button-group">
                     <Submit className="rw-button rw-button-blue">
