@@ -1,0 +1,19 @@
+.card{
+  cursor: pointer;
+}
+
+.form{
+  border: 1px solid rgba(0, 0, 0, 0.459);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+
+/*Let's make the forms responsive*/
+.rw-segment{
+  width: 300px;
+}
+
+.rw-login-container{
+  width: auto;
+}
