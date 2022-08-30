@@ -1,4 +1,5 @@
 import { Table } from 'react-bootstrap'
+
 // This is the main component
 const RecordTable = (props) => {
   const { data = [], columnNames, columnProps } = props

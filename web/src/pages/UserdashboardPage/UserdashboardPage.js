@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { MetaTags } from '@redwoodjs/web'
 
 import DropTab from 'src/components/DropTab'
+import HighChartsMap from 'src/components/HighchartsMap'
 import DeceasedList from 'src/components/User/DeceasedList'
 import useGetUserCount from 'src/hooks/User/useGetUserCount'
 
@@ -57,6 +58,7 @@ const UserdashboardPage = () => {
       <div className="container mt-3">
         <h2>{tableName}</h2>
         <DeceasedList statusFilter={tableFilter} />
+        <HighChartsMap />
       </div>
     </>
   )

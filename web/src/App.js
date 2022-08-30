@@ -9,6 +9,7 @@ import './scaffold.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './index.css'
+import './highcharts.css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
