@@ -4,6 +4,12 @@ export const deceaseds = async () => {
   return await db.deceased.findMany()
 }
 
+export const deceasedByStatusCount = async ({ status }) => {
+  return await db.deceased.count({
+    where: { status },
+  })
+}
+
 export const deceased = async ({ id }) => {
   return await db.deceased.findUnique({
     where: { id },

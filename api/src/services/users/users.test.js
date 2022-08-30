@@ -1,4 +1,11 @@
-import { users, user, createUser, updateUser, deleteUser } from './users'
+import {
+  users,
+  user,
+  usersByRole,
+  createUser,
+  updateUser,
+  deleteUser,
+} from './users'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -12,6 +19,15 @@ describe('users', () => {
 
     expect(result.length).toEqual(Object.keys(scenario.user).length)
   })
+
+  scenario(
+    'returns all users depending on the given role',
+    async (scenario) => {
+      const result = await usersByRole({ roles: 'user' })
+
+      expect(result.length).toEqual(Object.keys(scenario.user).length)
+    }
+  )
 
   scenario('returns a single user', async (scenario) => {
     const result = await user({ id: scenario.user.one.id })

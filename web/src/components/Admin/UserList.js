@@ -1,11 +1,10 @@
-import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 
 import RecordTable from '../RecordTable'
 
-const FIND_USERS = gql`
-  query FindUsers {
-    users: users {
+const FIND_USERS_BY_ROLE = gql`
+  query FindUsersByRole($roles: String!) {
+    usersByRole: usersByRole(roles: $roles) {
       id
       email
       firstName
@@ -34,43 +33,37 @@ const columnNames = ['ID', 'Email', 'Name']
 const columnProps = ['id', 'email', 'name']
 
 const FetchFromDB = () => {
-  const { data } = useQuery(FIND_USERS)
+  const { data } = useQuery(FIND_USERS_BY_ROLE, {
+    variables: { roles: 'user' },
+  })
 
   return data || []
 }
 
 const GetUserData = () => {
   const data = FetchFromDB()
-  const { users } = data
+  const { usersByRole } = data
 
-  return users || []
+  return usersByRole || []
 }
 
-const GetResult = (getList, id) => {
+const GetResult = (getList) => {
   return (
-    getList
-      .filter((d) => {
-        if (d.id === id) {
-          return false
-        }
-        return true
-      })
-      .map((d) => {
-        const name = `${d.firstName} ${d.lastName}`
+    getList.map((d) => {
+      const name = `${d.firstName} ${d.lastName}`
 
-        return {
-          id: d.id,
-          email: d.email,
-          name,
-        }
-      }) || []
+      return {
+        id: d.id,
+        email: d.email,
+        name,
+      }
+    }) || []
   )
 }
 
 const UserList = () => {
-  const { currentUser } = useAuth()
   const getList = GetUserData() || []
-  const getResult = GetResult(getList, currentUser.id)
+  const getResult = GetResult(getList)
 
   return (
     <RecordTable

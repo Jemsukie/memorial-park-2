@@ -4,48 +4,29 @@ import { MetaTags } from '@redwoodjs/web'
 
 import DeceasedList from 'src/components/Admin/DeceasedList'
 import UserList from 'src/components/Admin/UserList'
-import Cards from 'src/components/Cards'
+import DropTab from 'src/components/DropTab'
+import useGetAdminCount from 'src/hooks/Admin/useGetAdminCount'
 
 const tabs = [
   {
     name: 'Users',
     text: '',
     filter: '',
-    number: 0,
     addClassName: 'info',
   },
   {
     name: 'Filing Request',
     text: '',
     filter: 'request',
-    number: 0,
     addClassName: 'warning',
   },
   {
     name: 'Deceased Files',
     text: '',
     filter: 'approved',
-    number: 0,
     addClassName: 'secondary',
   },
 ]
-
-const DropTab = (props) => {
-  const { tabs, func } = props
-  return tabs.map((tab, idx) => {
-    return (
-      <div className="col" key={idx}>
-        <Cards
-          name={tab.name}
-          text={tab.text}
-          number={tab.number}
-          addClassName={tab.addClassName}
-          func={func}
-        />
-      </div>
-    )
-  })
-}
 
 const RenderTables = (props) => {
   const { tableFilter } = props
@@ -60,6 +41,8 @@ const RenderTables = (props) => {
 const AdmindashboardPage = () => {
   const [tableName, setTableName] = useState(tabs[0].name)
   const [tableFilter, setTableFilter] = useState('')
+
+  // const [loading, setLoading] = useState(false)
 
   const selectTable = (tableName) => {
     setTableName(tableName)
@@ -80,7 +63,11 @@ const AdmindashboardPage = () => {
 
       <div className="container mt-3 d-flex justify-content-center">
         <div className="row">
-          <DropTab tabs={tabs} func={selectTable} />
+          <DropTab
+            tabs={tabs}
+            useCounter={useGetAdminCount}
+            func={selectTable}
+          />
         </div>
       </div>
       <div className="container mt-3">

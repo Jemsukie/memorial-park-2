@@ -3,47 +3,31 @@ import { useState } from 'react'
 
 import { MetaTags } from '@redwoodjs/web'
 
-import Cards from 'src/components/Cards'
+import DropTab from 'src/components/DropTab'
 import DeceasedList from 'src/components/User/DeceasedList'
+import useGetUserCount from 'src/hooks/User/useGetUserCount'
 
 const tabs = [
   {
     name: 'Filing Request',
     text: '',
     filter: 'request',
-    number: 0,
     addClassName: 'warning',
   },
   {
     name: 'Deceased Files',
     text: '',
     filter: 'approved',
-    number: 0,
     addClassName: 'secondary',
   },
 ]
-
-const DropTab = (props) => {
-  const { tabs, func } = props
-  return tabs.map((tab, idx) => {
-    return (
-      <div className="col" key={idx}>
-        <Cards
-          name={tab.name}
-          text={tab.text}
-          number={tab.number}
-          addClassName={tab.addClassName}
-          func={func}
-        />
-      </div>
-    )
-  })
-}
 
 const UserdashboardPage = () => {
   const [tableName, setTableName] = useState(tabs[0].name)
 
   const [tableFilter, setTableFilter] = useState('request')
+
+  useGetUserCount()
 
   const selectTable = (tableName) => {
     setTableName(tableName)
@@ -63,7 +47,11 @@ const UserdashboardPage = () => {
 
       <div className="container mt-3 d-flex justify-content-center">
         <div className="row">
-          <DropTab tabs={tabs} func={selectTable} />
+          <DropTab
+            tabs={tabs}
+            useCounter={useGetUserCount}
+            func={selectTable}
+          />
         </div>
       </div>
       <div className="container mt-3">
