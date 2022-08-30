@@ -1,11 +1,11 @@
 import { db } from 'src/lib/db'
 
-export const deceasedOfUsers = () => {
-  return db.deceasedOfUser.findMany()
+export const deceasedOfUsers = async () => {
+  return await db.deceasedOfUser.findMany()
 }
 
-export const deceasedOfUser = ({ id }) => {
-  return db.deceasedOfUser.findUnique({
+export const deceasedOfUser = async ({ id }) => {
+  return await db.deceasedOfUser.findUnique({
     where: { id },
   })
 }

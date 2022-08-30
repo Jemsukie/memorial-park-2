@@ -1,11 +1,11 @@
 import { db } from 'src/lib/db'
 
-export const users = () => {
-  return db.user.findMany()
+export const users = async () => {
+  return await db.user.findMany()
 }
 
-export const user = ({ id }) => {
-  return db.user.findUnique({
+export const user = async ({ id }) => {
+  return await db.user.findUnique({
     where: { id },
   })
 }

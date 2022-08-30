@@ -18,7 +18,6 @@ const linkItems = [
     name: 'contact',
     html: 'Contact Us',
   },
-
   {
     name: 'login',
     html: 'Login',
@@ -68,7 +67,6 @@ const NavMenuLinks = (props) => {
 }
 
 const Navigate = (props) => {
-  console.log(props.item.props.name)
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
