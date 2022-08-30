@@ -3,7 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 import { routes } from '@redwoodjs/router'
 
 // The purpose of `items` data is to group navigation links
-const items = [['home', 'about', 'contact']]
+const items = [['home', 'about', 'contact', 'login']]
 
 const linkItems = [
   {
@@ -14,10 +14,14 @@ const linkItems = [
     name: 'about',
     html: 'About',
   },
-
   {
     name: 'contact',
     html: 'Contact Us',
+  },
+
+  {
+    name: 'login',
+    html: 'Login',
   },
 ]
 
