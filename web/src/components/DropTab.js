@@ -6,7 +6,7 @@ const DropTab = (props) => {
 
   return tabs.map((tab, idx) => {
     return (
-      <div className="col" key={idx}>
+      <div className="col-lg" key={idx}>
         <Cards
           name={tab.name}
           text={tab.text}
