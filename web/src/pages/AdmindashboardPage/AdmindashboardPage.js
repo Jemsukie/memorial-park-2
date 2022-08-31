@@ -56,7 +56,7 @@ const AdmindashboardPage = () => {
 
   return (
     <>
-      <MetaTags title="Admindashboard" description="Admindashboard page" />
+      <MetaTags title="Dashboard" description="Admindashboard page" />
 
       <div className="d-flex justify-content-center">
         <h1>Dashboard</h1>

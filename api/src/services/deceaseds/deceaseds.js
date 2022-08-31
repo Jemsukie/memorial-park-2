@@ -16,8 +16,8 @@ export const deceased = async ({ id }) => {
   })
 }
 
-export const createDeceased = ({ input }) => {
-  return db.deceased.create({
+export const createDeceased = async ({ input }) => {
+  return await db.deceased.create({
     data: input,
   })
 }

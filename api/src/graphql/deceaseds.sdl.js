@@ -23,9 +23,9 @@ export const schema = gql`
     lastName: String!
     dateBorn: DateTime!
     dateDied: DateTime!
-    latitude: String!
-    longitude: String!
-    status: String!
+    latitude: String
+    longitude: String
+    status: String
   }
 
   input UpdateDeceasedInput {
