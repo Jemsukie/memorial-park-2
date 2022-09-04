@@ -20,6 +20,14 @@ const FetchUsers = () => {
   return data || ''
 }
 
+const FetchAdmins = () => {
+  const { data } = useQuery(FIND_USERS_BY_ROLE_COUNT, {
+    variables: { roles: 'admin' },
+  })
+
+  return data || ''
+}
+
 const FetchDeceasedRequest = () => {
   const { data } = useQuery(FIND_DECEASED_BY_STATUS_COUNT, {
     variables: { status: 'request' },
@@ -39,12 +47,15 @@ const FetchDeceasedApproved = () => {
 const FetchAll = () => {
   const request = FetchDeceasedRequest()
   const approved = FetchDeceasedApproved()
-  const { usersByRoleCount } = FetchUsers()
+  const users = FetchUsers()
+  const admins = FetchAdmins()
+  const loading = 'Loading...'
 
   return [
-    usersByRoleCount,
-    request.deceasedByStatusCount,
-    approved.deceasedByStatusCount,
+    users ? users.usersByRoleCount : loading,
+    admins ? admins.usersByRoleCount - 1 : loading,
+    request ? request.deceasedByStatusCount : loading,
+    approved ? approved.deceasedByStatusCount : loading,
   ]
 }
 

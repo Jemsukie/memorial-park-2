@@ -1,4 +1,7 @@
+import { useState } from 'react'
+
 import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 
 import { useAuth } from '@redwoodjs/auth'
 import { routes } from '@redwoodjs/router'
@@ -50,12 +53,10 @@ const Viewer = () => {
 }
 
 const UserView = () => {
-  const { currentUser, logOut } = useAuth()
-  const confirmLogout = () => {
-    const choice = window.confirm('Are you sure to leave?')
-    if (choice) {
-      logOut()
-    }
+  const { currentUser } = useAuth()
+  const [view, setView] = useState(false)
+  const viewing = (flip) => {
+    setView(flip)
   }
 
   return (
@@ -66,20 +67,28 @@ const UserView = () => {
       <Nav.Link href={routes.userdashboard()} className={'active'}>
         Dashboard
       </Nav.Link>
-      <Nav.Link onClick={confirmLogout} className={'active'}>
+      <Nav.Link href={routes.userSettings()} className={'active'}>
+        Settings
+      </Nav.Link>
+      <Nav.Link
+        onClick={() => {
+          viewing(true)
+        }}
+        className={'active'}
+      >
         Logout
       </Nav.Link>
+
+      {view ? <LogoutModal viewing={viewing} view={view} /> : <></>}
     </>
   )
 }
 
 const AdminView = () => {
-  const { currentUser, logOut } = useAuth()
-  const confirmLogout = () => {
-    const choice = window.confirm('Are you sure to leave?')
-    if (choice) {
-      logOut()
-    }
+  const { currentUser } = useAuth()
+  const [view, setView] = useState(false)
+  const viewing = (flip) => {
+    setView(flip)
   }
 
   return (
@@ -87,12 +96,43 @@ const AdminView = () => {
       <Nav.Link>
         Hi {currentUser.firstName} {currentUser.lastName}!
       </Nav.Link>
-      <Nav.Link href={routes.userdashboard()} className={'active'}>
+      <Nav.Link href={routes.admindashboard()} className={'active'}>
         Dashboard
       </Nav.Link>
-      <Nav.Link onClick={confirmLogout} className={'active'}>
+      <Nav.Link href={routes.adminSettings()} className={'active'}>
+        Settings
+      </Nav.Link>
+      <Nav.Link
+        onClick={() => {
+          viewing(true)
+        }}
+        className={'active'}
+      >
         Logout
       </Nav.Link>
+
+      {view ? <LogoutModal viewing={viewing} view={view} /> : <></>}
+    </>
+  )
+}
+
+const LogoutModal = (props) => {
+  const { logOut } = useAuth()
+  const { viewing, view } = props
+
+  const handleClose = () => viewing(false)
+  // const handleShow = () => setShow(true)
+
+  return (
+    <>
+      <Modal show={view} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to Logout?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Button onClick={logOut}>Confirm</Button>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

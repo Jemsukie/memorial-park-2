@@ -1,6 +1,6 @@
-// import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 
+import Modals from '../Modals'
 import RecordTable from '../RecordTable'
 
 const FIND_DECEASEDS = gql`
@@ -24,8 +24,66 @@ const FIND_DECEASEDS = gql`
   }
 `
 
-const columnNames = ['ID', 'Name', 'Born', 'Died']
-const columnProps = ['id', 'name', 'dateBorn', 'dateDied']
+// Let's modify the column structure for request and approved
+const columnStructure = {
+  request: {
+    names: ['ID', 'Name', 'Born', 'Died', 'Actions'],
+    props: [
+      'id',
+      'name',
+      'dateBorn',
+      'dateDied',
+      (props) => {
+        const { id } = props
+        return (
+          <>
+            <Modals
+              variant={'success'}
+              text={'Approve'}
+              icon={''}
+              comp={<>{id}</>}
+            />
+            <Modals
+              variant={'danger'}
+              text={'Decline'}
+              icon={''}
+              comp={<>{id}</>}
+            />
+          </>
+        )
+      },
+    ],
+  },
+  approved: {
+    names: ['ID', 'Name', 'Born', 'Died', 'Actions'],
+    props: [
+      'id',
+      'name',
+      'dateBorn',
+      'dateDied',
+      (props) => {
+        const { id } = props
+        return (
+          <>
+            <Modals
+              variant={'success'}
+              text={'Update'}
+              icon={''}
+              comp={<>{id}</>}
+            />
+
+            <Modals
+              variant={'danger'}
+              text={'Delete'}
+              icon={''}
+              comp={<>{id}</>}
+            />
+          </>
+        )
+      },
+    ],
+  },
+}
 
 const FetchFromDB = () => {
   // const { currentUser } = useAuth()
@@ -75,8 +133,8 @@ const DeceasedList = (props) => {
   return (
     <RecordTable
       data={getResult}
-      columnNames={columnNames}
-      columnProps={columnProps}
+      columnNames={columnStructure[statusFilter].names}
+      columnProps={columnStructure[statusFilter].props}
     />
   )
 }

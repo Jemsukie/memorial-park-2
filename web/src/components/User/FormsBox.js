@@ -45,8 +45,7 @@ const FormsBox = () => {
 
   const [createDeceasedOfUser] = useMutation(CREATE_DECEASED_OF_USER_MUTATION, {
     onCompleted: () => {
-      toast.success('DeceasedOfUser created')
-      alert('Record Successfully Added!')
+      toast.success('Record Successfully Added!')
       window.location.reload()
     },
     onError: (error) => {

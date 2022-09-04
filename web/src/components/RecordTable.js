@@ -24,6 +24,15 @@ const RecordTable = (props) => {
 
     const ComposeColumn = () => {
       return columnProps.map((cp, idx) => {
+        if (!data[cp]) {
+          return (
+            <td key={idx}>
+              {cp({
+                id: data.id,
+              })}
+            </td>
+          )
+        }
         return <td key={idx}>{data[cp]}</td>
       })
     }

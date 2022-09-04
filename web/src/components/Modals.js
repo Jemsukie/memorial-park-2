@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, Button } from 'react-bootstrap'
 
 const Modals = (props) => {
-  const { text, comp, icon } = props
+  const { text, comp, icon, variant } = props
 
   const [show, setShow] = useState(false)
 
@@ -13,7 +13,7 @@ const Modals = (props) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant={variant} onClick={handleShow}>
         {icon ? <FontAwesomeIcon icon={icon} /> : <></>}
         {text}
       </Button>

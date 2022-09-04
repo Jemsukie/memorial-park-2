@@ -11,6 +11,8 @@ export const schema = gql`
   type Query {
     deceasedOfUsers: [DeceasedOfUser!]! @skipAuth
     deceasedOfUser(id: Int!): DeceasedOfUser @skipAuth
+    deceasedOfUsersByUser(userId: Int!): [DeceasedOfUser!]! @skipAuth
+    deceasedOfUsersByDeceased(deceasedId: Int!): [DeceasedOfUser!]! @skipAuth
   }
 
   input CreateDeceasedOfUserInput {

@@ -1,6 +1,7 @@
 import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 
+import Modals from '../Modals'
 import RecordTable from '../RecordTable'
 
 const FIND_USER = gql`
@@ -30,8 +31,27 @@ const FIND_USER = gql`
   }
 `
 
-const columnNames = ['ID', 'Name', 'Born', 'Died']
-const columnProps = ['id', 'name', 'dateBorn', 'dateDied']
+const columnNames = ['ID', 'Name', 'Born', 'Died', 'Actions']
+const columnProps = [
+  'id',
+  'name',
+  'dateBorn',
+  'dateDied',
+  (props) => {
+    const { id } = props
+    return (
+      <>
+        <Modals
+          variant={'success'}
+          text={'Update'}
+          icon={''}
+          comp={<>{id}</>}
+        />
+        <Modals variant={'danger'} text={'Delete'} icon={''} comp={<>{id}</>} />
+      </>
+    )
+  },
+]
 
 const FetchFromDB = () => {
   const { currentUser } = useAuth()

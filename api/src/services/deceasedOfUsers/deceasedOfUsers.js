@@ -4,6 +4,23 @@ export const deceasedOfUsers = async () => {
   return await db.deceasedOfUser.findMany()
 }
 
+export const deceasedOfUsersByUser = async ({ userId }) => {
+  console.log('--userId', userId)
+  return await db.deceasedOfUser.findMany({
+    where: {
+      userId,
+    },
+  })
+}
+
+export const deceasedOfUsersByDeceased = async ({ deceasedId }) => {
+  return await db.deceasedOfUser.findMany({
+    where: {
+      deceasedId,
+    },
+  })
+}
+
 export const deceasedOfUser = async ({ id }) => {
   return await db.deceasedOfUser.findUnique({
     where: { id },

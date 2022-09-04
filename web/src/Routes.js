@@ -17,12 +17,14 @@ const Routes = () => {
       <Private unauthenticated="home" roles="user">
         <Set wrap={MainLayout}>
           <Route path="/user-dashboard" page={UserdashboardPage} name="userdashboard" link={'user'} />
+          <Route path="/user-settings" page={UserSettingsPage} name="userSettings" link={'user'} />
         </Set>
       </Private>
 
       <Private unauthenticated="home" roles="admin">
         <Set wrap={MainLayout}>
           <Route path="/admin-dashboard" page={AdmindashboardPage} name="admindashboard" link={'admin'} />
+          <Route path="/admin-settings" page={AdminSettingsPage} name="adminSettings" link={'admin'} />
         </Set>
       </Private>
 
@@ -32,9 +34,10 @@ const Routes = () => {
         <Route path="/contact-us" page={ContactPage} name="contact" link={'viewer'} />
         <Route path="/login" page={LoginPage} name="login" link={'viewer'} />
         <Route path="/signup" page={SignupPage} name="signup" link={'viewer'} />
-        {/* <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" /> */}
-        {/* <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" /> */}
         <Route notfound page={NotFoundPage} />
+
+        {/* <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" link={'user'} />
+          <Route path="/user-reset" page={ResetPasswordPage} name="resetPassword" link={'admin'} /> */}
       </Set>
     </Router>
   )
