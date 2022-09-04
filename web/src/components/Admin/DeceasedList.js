@@ -1,7 +1,12 @@
 import { useQuery } from '@redwoodjs/web'
 
+import HighChartsMap from '../HighchartsMap'
 import Modals from '../Modals'
 import RecordTable from '../RecordTable'
+
+import ApproveFormsBox from './ApproveFormsBox'
+import DeclineFormsBox from './DeclineFormsBox'
+import UpdateFormsBox from './UpdateFormsBox'
 
 const FIND_DECEASEDS = gql`
   query FindDeceaseds {
@@ -41,13 +46,13 @@ const columnStructure = {
               variant={'success'}
               text={'Approve'}
               icon={''}
-              comp={<>{id}</>}
+              comp={<ApproveFormsBox id={id} />}
             />
             <Modals
               variant={'danger'}
               text={'Decline'}
               icon={''}
-              comp={<>{id}</>}
+              comp={<DeclineFormsBox id={id} />}
             />
           </>
         )
@@ -66,17 +71,23 @@ const columnStructure = {
         return (
           <>
             <Modals
+              variant={'info'}
+              text={'View'}
+              icon={''}
+              comp={<HighChartsMap />}
+            />
+            <Modals
               variant={'success'}
               text={'Update'}
               icon={''}
-              comp={<>{id}</>}
+              comp={<UpdateFormsBox id={id} />}
             />
 
             <Modals
               variant={'danger'}
               text={'Delete'}
               icon={''}
-              comp={<>{id}</>}
+              comp={<DeclineFormsBox id={id} />}
             />
           </>
         )

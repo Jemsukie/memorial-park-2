@@ -3,7 +3,6 @@ import { useState } from 'react'
 import DeceasedList from 'src/components/Admin/DeceasedList'
 import UserList from 'src/components/Admin/UserList'
 import DropTab from 'src/components/DropTab'
-import HighChartsMap from 'src/components/HighchartsMap'
 import useGetAdminCount from 'src/hooks/Admin/useGetAdminCount'
 
 const tabs = [
@@ -78,7 +77,6 @@ const Admindashboard = () => {
       <div className="container mt-3">
         <h2>{tableName}</h2>
         <RenderTables tableFilter={tableFilter} tableIndex={tableIndex} />
-        <HighChartsMap />
       </div>
     </>
   )

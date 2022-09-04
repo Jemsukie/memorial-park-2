@@ -1,4 +1,3 @@
-// import Navigate from 'src/components/Navigate'
 import NavMenu from 'src/components/NavMenu'
 
 const MainLayout = ({ children }) => {

@@ -3,12 +3,11 @@ import { useState } from 'react'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import DropTab from 'src/components/DropTab'
-import HighChartsMap from 'src/components/HighchartsMap'
 import Modals from 'src/components/Modals'
 import DeceasedList from 'src/components/User/DeceasedList'
 import useGetUserCount from 'src/hooks/User/useGetUserCount'
 
-import FormsBox from './FormsBox'
+import AddFormsBox from './AddFormsBox'
 
 const tabs = [
   {
@@ -29,7 +28,7 @@ const Userdashboard = () => {
   const [tableName, setTableName] = useState(tabs[0].name)
 
   const [tableFilter, setTableFilter] = useState('request')
-  const comp = <FormsBox />
+  const comp = <AddFormsBox />
 
   useGetUserCount()
 
@@ -68,7 +67,6 @@ const Userdashboard = () => {
           variant={'success'}
         />
         <DeceasedList statusFilter={tableFilter} />
-        <HighChartsMap />
       </div>
     </>
   )

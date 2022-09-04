@@ -1,8 +1,12 @@
 import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 
+import HighChartsMap from '../HighchartsMap'
 import Modals from '../Modals'
 import RecordTable from '../RecordTable'
+
+import DeleteFormsBox from './DeleteFormsBox'
+import UpdateFormsBox from './UpdateFormsBox'
 
 const FIND_USER = gql`
   query FindUser($id: Int!) {
@@ -30,28 +34,6 @@ const FIND_USER = gql`
     }
   }
 `
-
-const columnNames = ['ID', 'Name', 'Born', 'Died', 'Actions']
-const columnProps = [
-  'id',
-  'name',
-  'dateBorn',
-  'dateDied',
-  (props) => {
-    const { id } = props
-    return (
-      <>
-        <Modals
-          variant={'success'}
-          text={'Update'}
-          icon={''}
-          comp={<>{id}</>}
-        />
-        <Modals variant={'danger'} text={'Delete'} icon={''} comp={<>{id}</>} />
-      </>
-    )
-  },
-]
 
 const FetchFromDB = () => {
   const { currentUser } = useAuth()
@@ -107,6 +89,71 @@ const GetResult = (getList, statusFilter) => {
 }
 
 const DeceasedList = (props) => {
+  const columnStructure = {
+    request: {
+      names: ['ID', 'Name', 'Born', 'Died', 'Actions'],
+      props: [
+        'id',
+        'name',
+        'dateBorn',
+        'dateDied',
+        (props) => {
+          const { id } = props
+          return (
+            <>
+              <Modals
+                variant={'success'}
+                text={'Update'}
+                icon={''}
+                comp={<UpdateFormsBox id={id} />}
+              />
+              <Modals
+                variant={'danger'}
+                text={'Delete'}
+                icon={''}
+                comp={<DeleteFormsBox id={id} />}
+              />
+            </>
+          )
+        },
+      ],
+    },
+    approved: {
+      names: ['ID', 'Name', 'Born', 'Died', 'Actions'],
+      props: [
+        'id',
+        'name',
+        'dateBorn',
+        'dateDied',
+        (props) => {
+          const { id } = props
+          return (
+            <>
+              <Modals
+                variant={'info'}
+                text={'View'}
+                icon={''}
+                comp={<HighChartsMap />}
+              />
+              <Modals
+                variant={'success'}
+                text={'Update'}
+                icon={''}
+                comp={<UpdateFormsBox id={id} />}
+              />
+              <Modals
+                variant={'danger'}
+                text={'Delete'}
+                icon={''}
+                comp={<DeleteFormsBox id={id} />}
+              />
+            </>
+          )
+        },
+      ],
+    },
+  }
+
   const getList = getDeceasedList() || []
   const { statusFilter } = props
 
@@ -115,8 +162,8 @@ const DeceasedList = (props) => {
   return (
     <RecordTable
       data={getResult}
-      columnNames={columnNames}
-      columnProps={columnProps}
+      columnNames={columnStructure[statusFilter].names}
+      columnProps={columnStructure[statusFilter].props}
     />
   )
 }
